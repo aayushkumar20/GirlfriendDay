@@ -108,7 +108,7 @@ function triggerHug() {
         setTimeout(() => {
             extraContainer.classList.add('hidden');
             backpackContainer.classList.remove('hidden');
-            mainMessage.innerText = "Yay! Always carrying you! 🎒";
+            mainMessage.innerText = "I'm with you Hamesha ❤️";
             subMessage.innerText = "Never letting you go...";
             heartExplosion(50);
             setTimeout(() => {

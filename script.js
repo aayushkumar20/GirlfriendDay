@@ -39,13 +39,11 @@ setInterval(spawnBackgroundHeart, 150);
 // Drag logic
 function setupDraggable(element) {
     element.addEventListener('pointerdown', (e) => {
-        if (!musicStarted) {
-            bgMusic.volume = 0.5; // Soft volume for cute vibe
-            bgMusic.play().catch(err => console.log("Audio play failed:", err));
-            musicStarted = true;
-        }
-        
         if(isHugged) return;
+        
+        bgMusic.volume = 0.5; // Soft volume for cute vibe
+        bgMusic.play().catch(err => console.log("Audio play failed:", err));
+        musicStarted = true;
         activePointers[e.pointerId] = {
             element: element,
             offsetX: e.clientX - element.getBoundingClientRect().left - element.offsetWidth/2,
@@ -85,6 +83,11 @@ function setupDraggable(element) {
             delete activePointers[e.pointerId];
             element.style.cursor = 'grab';
             element.releasePointerCapture(e.pointerId);
+            
+            // If no characters are being dragged and they haven't hugged yet, pause the music
+            if (Object.keys(activePointers).length === 0 && !isHugged) {
+                bgMusic.pause();
+            }
         }
     };
 
@@ -121,6 +124,11 @@ function checkCollision() {
 
 function triggerHug() {
     isHugged = true;
+    
+    // Ensure music plays continuously once they hug
+    if (bgMusic.paused) {
+        bgMusic.play().catch(err => console.log("Audio play failed:", err));
+    }
     
     // Hide characters
     duduContainer.classList.add('hidden');

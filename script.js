@@ -19,7 +19,7 @@ function spawnBackgroundHeart() {
     heart.style.left = Math.random() * 100 + 'vw';
     heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
     const colors = ['#ff4d6d', '#ff758f', '#ffb3c1', '#ffffff'];
-    heart.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+    heart.style.setProperty('--color', colors[Math.floor(Math.random() * colors.length)]);
     heartsContainer.appendChild(heart);
     setTimeout(() => {
         heart.remove();

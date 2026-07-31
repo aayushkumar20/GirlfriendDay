@@ -8,10 +8,12 @@ const kissContainer = document.getElementById('kiss-container');
 const mainMessage = document.getElementById('main-message');
 const subMessage = document.getElementById('sub-message');
 const heartsContainer = document.getElementById('hearts-container');
+const bgMusic = document.getElementById('bg-music');
 
 // State tracking for multiple pointers
 const activePointers = {};
 let isHugged = false;
+let musicStarted = false;
 
 // Spawn background floating hearts
 function spawnBackgroundHeart() {
@@ -37,6 +39,12 @@ setInterval(spawnBackgroundHeart, 150);
 // Drag logic
 function setupDraggable(element) {
     element.addEventListener('pointerdown', (e) => {
+        if (!musicStarted) {
+            bgMusic.volume = 0.5; // Soft volume for cute vibe
+            bgMusic.play().catch(err => console.log("Audio play failed:", err));
+            musicStarted = true;
+        }
+        
         if(isHugged) return;
         activePointers[e.pointerId] = {
             element: element,

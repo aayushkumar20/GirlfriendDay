@@ -241,3 +241,8 @@ p {
     0% { transform: translate(0, 0) rotate(-45deg) scale(0.5); opacity: 1; }
     100% { transform: translate(var(--tx), var(--ty)) rotate(calc(-45deg + var(--rot))) scale(1.2); opacity: 0; }
 }
+
+#love-container .hug-img {
+    width: 380px;
+    height: 380px;
+}
